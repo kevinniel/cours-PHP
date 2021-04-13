@@ -50,9 +50,31 @@ function getJokes($mysqli) {
 	return $jokes;
 }
 
-// On gère si le formulaire à été envoyé
-if ( !is_null($_POST) && !empty($_POST) ) {
-	insertJoke($mysqli, $_POST["joke"]);
+// On vérifie si le formulaire à été envoyé
+if ( isset($_POST) && !is_null($_POST) && !empty($_POST) ) {
+	
+	// on vérifier si c'est le form goodjoke
+	if(isset($_POST["goodjoke"])) {
+
+		// vérification contenu à insérer en BDD
+		if(!is_null($_POST["joke"]) && !empty($_POST["joke"])) {
+			// AJOUT EN BDD
+			insertJoke($mysqli, $_POST["joke"]);
+		}
+
+	}
+
+	// on vérifie si c'est le form badjoke
+	if(isset($_POST["badjoke"])) {
+
+		// vérification contenu à insérer en BDD
+		if(!is_null($_POST["joke"]) && !empty($_POST["joke"])) {
+			// AJOUT EN BDD
+			insertJoke($mysqli, $_POST["joke"]);
+		}	
+
+	}
+
 }
 
 ?>
@@ -87,7 +109,12 @@ if ( !is_null($_POST) && !empty($_POST) ) {
 		<h2>ajouter une blague</h2>
 		<form action="" method="POST">
 			<input type="text" name="joke">
-			<button type="submit">Ajouter la blague</button>
+			<button type="submit" name="goodjoke">Ajouter la blague</button>
+		</form>
+
+		<form action="" method="POST">
+			<input type="text" name="joke">
+			<button type="submit" name="badjoke">Ajouter la mauvaise blague</button>
 		</form>
 
 	</div>
